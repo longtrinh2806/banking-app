@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    height: 100vh;
+    background-color: rgb(209, 219, 218);
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.wrapper {
+    width: 550px;
+    height: auto;
+    padding: 15px;
+    background-color: white;
+    border-radius: 7px;
+}
+
+.email-msg-header {
+    text-align: center;
+}
+
+.company-name {
+    width: 100%;
+    font-size: 35px;
+    color: grey;
+    text-align: center;
+}
+
+.welcome-text {
+    text-align: center;
+}
+
+.verify-btn {
+    padding: 15px;
+    background-color: #5fbec0;
+    text-decoration: none;
+    color: white;
+    border-radius: 7px;
+}
+
+.copy-right {
+    text-align: center;
+    padding: 15px;
+    color: grey;
+    font-size: 14px;
+    margin: 20px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

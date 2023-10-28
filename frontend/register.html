@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.css">
+    <title>Register</title>
+</head>
+
+<body class="d-flex align-items-center justify-content-center">
+
+    <div class="card registration-form-card col-6 bg-transparent border-0">
+
+        <div class="card-body">
+            <h1 class="form-header card-title mb-3">Register</h1>
+
+            <form action="http://localhost:8080/auth/signup" class="reg-form" method="post" id="registrationForm">
+                <!-- ROW 1 -->
+                <div class="row">
+
+                    <div class="form-group col">
+                        <input type="text" id="first-name" name="first-name" class="form-control form-control-lg"
+                            placeholder="Enter First Name">
+                    </div>
+
+                    <div class="form-group col">
+                        <input type="text" id="last-name" name="last-name" class="form-control form-control-lg"
+                            placeholder="Enter Last Name">
+                    </div>
+                </div>
+                <!-- ROW 2 -->
+                <div class="form-group col">
+                    <input type="email" id="email" name="email" class="form-control form-control-lg"
+                        placeholder="Enter Email">
+                </div>
+                <!-- ROW 3 -->
+                <div class="row">
+                    <div class="form-group col">
+                        <input type="password" id="password" name="password" class="form-control form-control-lg"
+                            placeholder="Enter Password">
+                    </div>
+
+                    <div class="form-group col">
+                        <input type="password" id="confirm-password" name="confirm-password"
+                            class="form-control form-control-lg" placeholder="Confirm password">
+                    </div>
+                </div>
+
+                <div class="form-group col">
+                    <button type="submit" class="btn btn-lg" id="register-button">Register</button>
+                </div>
+
+            </form>
+
+            <p class="card-text text-white my-2">
+                Already have an account? <span class="ms-2"><a href="login.html" class="btn btn-sm">Sign In</a></span>
+            </p>
+
+            <small class="text-white">
+                <a href="index.html" class="btn btn-sm">Back to home page</a>
+            </small>
+        </div>
+    </div>
+</body>
+<script>
+    document.getElementById("register-button").addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // Get input values and validate
+        const firstName = document.getElementById("first-name").value;
+        const lastName = document.getElementById("last-name").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword = document.getElementById("confirm-password").value;
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        // Create a data object and send it to the server
+        const data = {
+            firstName: firstName, // Fixed variable names
+            lastName: lastName, // Fixed variable names
+            email: email,
+            password: password
+        };
+
+        fetch("http://localhost:8080/auth/signup", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                // Handle the response from the server
+                console.log("Sign Up Successfully:", data);
+                if (data.message) {
+                    alert(data.message);
+                }
+                window.location.href = "login.html";
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    });
+
+</script>
+
+</html>

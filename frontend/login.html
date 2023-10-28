@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/bootstrap/css/bootstrap.css">
+    <title>Login</title>
+</head>
+
+<body class="d-flex align-items-center justify-content-center">
+
+    <div class="card login-form-card col-4 bg-transparent border-0">
+
+        <div class="card-body">
+            <h1 class="form-header card-title mb-3">Login</h1>
+
+            <form action="login" class="reg-form" method="post">
+                <!-- ROW 2 -->
+                <div class="form-group col col">
+                    <input type="email" id="email" class="form-control form-control-lg" placeholder="Enter Email">
+                </div>
+
+                <div class="form-group col">
+                    <input type="password" id="password" class="form-control form-control-lg"
+                        placeholder="Enter Password">
+                </div>
+
+                <div id="error-message" class="text-danger"></div>
+
+                <div class="form-group col">
+                    <button class="btn btn-lg" id="login-button">Login</button>
+                </div>
+            </form>
+
+            <p class="card-text text-white my-2">
+                Do not have an account? <span class="ms-2"><a href="register.html" class="btn btn-sm">Sign Up</a></span>
+            </p>
+
+            <small class="text-white">
+                <a href="index.html" class="btn btn-sm">Back to home page</a>
+            </small>
+        </div>
+    </div>
+
+    <script>
+        // Xử lý sự kiện khi nút "Login" được bấm
+        document.getElementById("login-button").addEventListener("click", function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            const data = {
+                email: email,
+                password: password
+            };
+
+            fetch("http://localhost:8080/auth/signin", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error("Login failed");
+                    }
+                })
+                .then(data => {
+                    console.log("Login Successful:", data);
+                    if (data.token) {
+                        // lưu token vào localStorage
+                        localStorage.setItem("token", data.token);
+                    }
+                    if (data.message) {
+                        alert(data.message);
+                    }
+                    window.location.href = "dashboard.html";
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    document.getElementById("error-message").textContent = "Incorrect email or password.";
+                });
+        });
+    </script>
+
+</body>
+
+</html>

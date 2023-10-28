@@ -1,0 +1,75 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+body {
+    background-color: #eafbff;
+}
+
+.container {
+    margin: 10px auto;
+}
+
+.main-page-header {
+    padding: 10px;
+    background-color: #1190a4;
+}
+
+.main-page-header .name {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.navigation {
+
+    margin-left: 25px;
+}
+
+.navigation li {
+    display: inline-block;
+    list-style-type: none;
+    margin: 0px 15px;
+}
+
+.navigation li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.display-name {
+    font-weight: 600;
+}
+
+#transact-btn {
+    background-color: #ffb114;
+    border: 1.5px solid #543800;
+}
+
+#add-account-btn {
+    background-color: #ff4e00;
+    border: 1.5px solid #8B2B00;
+}
+
+.offcanvas {
+    background-image: url("../images/offcanvas.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.payment-card {
+    display: none;
+}
+
+.transfer-card {
+    display: none;
+}
+
+.deposit-card {
+    display: none;
+}
+
+.withdraw-card {
+    display: none;
+}
