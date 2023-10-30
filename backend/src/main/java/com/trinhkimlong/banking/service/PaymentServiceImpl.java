@@ -1,7 +1,9 @@
 package com.trinhkimlong.banking.service;
 
+import com.trinhkimlong.banking.exception.AccountException;
 import com.trinhkimlong.banking.exception.UserNotFoundException;
 import com.trinhkimlong.banking.model.Account;
+import com.trinhkimlong.banking.model.Payment;
 import com.trinhkimlong.banking.model.User;
 import com.trinhkimlong.banking.repository.AccountRepository;
 import com.trinhkimlong.banking.repository.PaymentRepository;
@@ -39,6 +41,15 @@ public class PaymentServiceImpl implements PaymentService{
                     beneficiaryAccount.setBalance(beneficiaryAccount.getBalance() + request.getAmount());
                     accountRepository.save(account);
                     accountRepository.save(beneficiaryAccount);
+
+                    Payment payment = new Payment();
+                    payment.setPaymentId(0L);
+                    payment.setAmount(request.getAmount());
+                    payment.setAccount(account);
+                    payment.setBeneficiaryAccount(beneficiaryAccount.getAccountNumber());
+                    payment.setBeneficiaryName(beneficiaryAccount.getAccountName());
+
+                    paymentRepository.save(payment);
                 }
             }
             return PaymentResponse
