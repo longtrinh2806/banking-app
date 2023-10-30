@@ -5,9 +5,6 @@ spring:
     password: springstudent
 
   jpa:
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQL57Dialect
     hibernate:
       ddl-auto: create-drop
     show-sql: true

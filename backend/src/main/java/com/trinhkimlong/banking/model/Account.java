@@ -1,10 +1,7 @@
 package com.trinhkimlong.banking.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -21,14 +18,11 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountId;
 
-    @Column(name = "account_number", nullable = false)
+    @Column(name = "account_number", nullable = false, unique = true)
     private String accountNumber;
 
     @Column(name = "account_name", nullable = false)
     private String accountName;
-
-    @Column(name = "account_type", nullable = false)
-    private String accountType;
 
     @Column(name = "balance")
     private Long balance;

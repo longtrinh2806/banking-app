@@ -24,12 +24,16 @@ public class DashboardService {
 
         List<Account> getUserAccount = accountRepository.findAccountsByUserId(user.getUserId());
 
-        Long totalAccountsBalance = accountRepository.getTotalBalance(user.getUserId());
+        Long totalAccountsBalance = 0L;
+        for (Account account : getUserAccount) {
+            totalAccountsBalance += account.getBalance();
+        }
 
         return DashboardResponse
                 .builder()
                 .nameAccount(userFullName)
                 .totalBalance(totalAccountsBalance)
+                .getUserAccount(getUserAccount)
                 .build();
     }
 }

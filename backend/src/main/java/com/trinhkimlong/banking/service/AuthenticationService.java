@@ -36,14 +36,14 @@ public class AuthenticationService {
                     .build();
             userRepository.save(tmp);
 
-            Authentication authentication = new UsernamePasswordAuthenticationToken(
-                    registerRequest.getEmail(), registerRequest.getPassword());
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            String token = jwtService.generateToken(authentication);
+//            Authentication authentication = new UsernamePasswordAuthenticationToken(
+//                    registerRequest.getEmail(), registerRequest.getPassword());
+//            SecurityContextHolder.getContext().setAuthentication(authentication);
+//            String token = jwtService.generateToken(authentication);
 
             return AuthenticationResponse
                     .builder()
-                    .token(token)
+//                    .token(token)
                     .message("Sign Up Successfully")
                     .build();
         }

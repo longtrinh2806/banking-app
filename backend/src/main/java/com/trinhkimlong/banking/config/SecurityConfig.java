@@ -37,19 +37,15 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class)
                 .authenticationProvider(authenticationProvider)
-//                .cors(cors -> cors
-//                        .configurationSource(new CorsConfigurationSource() {
-//                            @Override
-//                            public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
-//                                CorsConfiguration cfg = new CorsConfiguration();
-//                                cfg.setAllowedOrigins(Arrays.asList("http://127.0.0.1:5500/**"));
-//                                cfg.setAllowedMethods(Collections.singletonList("*"));
-//                                cfg.setAllowCredentials(true);
-//                                cfg.setExposedHeaders(Arrays.asList("Authorization"));
-//                                cfg.setMaxAge(3600L);
-//                                return cfg;
-//                            }
-//                        }))
+                .cors(cors -> cors
+                        .configurationSource(request -> {
+                            CorsConfiguration cfg = new CorsConfiguration();
+                            cfg.setAllowedOrigins(Collections.singletonList("*"));
+                            cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+                            cfg.setAllowedHeaders(Arrays.asList("*"));
+                            return cfg;
+                        })
+                )
                 .build();
     }
 

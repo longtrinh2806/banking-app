@@ -37,7 +37,7 @@
             <!-- End Display Name -->
 
             <!-- Log out button -->
-            <a href="" class="btn btn-sm text-white ms-3">Sign Out</a>
+            <a href="" class="btn btn-sm text-white ms-3" id="signOutButton">Sign Out</a>
             <!-- End Log out button -->
 
         </div>
@@ -62,7 +62,6 @@
             <select name="transact-type" class="form-control my-3" id="transact-type">
                 <option value="">-- Select Transaction Type</option>
                 <option value="payment">Payment</option>
-                <option value="transfer">Transfer</option>
                 <option value="deposit">Deposit</option>
                 <option value="withdraw">Withdraw</option>
             </select>
@@ -71,6 +70,13 @@
             <!-- Card: Payment Card -->
             <div class="card payment-card">
                 <div class="card-body">
+                    <div class="form-group mb-2">
+                        <label for="">Select Account</label>
+                        <select name="account_id" class="form-control">
+                            <option value="">-- Select Account --</option>
+                        </select>
+                    </div>
+
                     <div class="form-group mb-2">
                         <label for="">Account Holder / Beneficiary</label>
                         <input type="text" name="beneficiary" class="form-control"
@@ -82,65 +88,19 @@
                             placeholder="Enter Account Number">
                     </div>
 
-                    <div class="form-group">
-                        <label for="">Select Account</label>
-                        <!-- Select Acount Option -->
-                        <select name="account_id" class="form-control">
-                            <option value="">-- Select Account --</option>
-                        </select>
-                        <!-- End of Select Acount Option -->
-                    </div>
-                    <div class="form-group mb-2">
-                        <label for="">Reference</label>
-                        <input type="text" name="reference" class="form-control" placeholder="Enter Reference">
-                    </div>
                     <div class="form-group mb-2">
                         <label for="">Payment Amount</label>
                         <input type="text" name="payment_amount" class="form-control"
                             placeholder="Enter Payment Amount">
                     </div>
                     <div class="form-group mb-2">
-                        <button id="transact-btn" class="btn btn-md">Pay</button>
+                        <button id="payment-btn" class="btn btn-md">Pay</button>
                     </div>
                 </div>
             </div>
             <!-- End of Card: Payment Card -->
 
-            <!-- Card: Transfer Card -->
-            <div class="card transfer-card">
-                <div class="card-body">
-
-                    <div class="form-group">
-                        <label for="">Select Account</label>
-                        <!-- Select Acount Option -->
-                        <select name="account_id" class="form-control">
-                            <option value="">-- Select Account --</option>
-                        </select>
-                        <!-- End of Select Acount Option -->
-                    </div>
-
-                    <div class="form-group">
-                        <label for="">Select Account</label>
-                        <!-- Select Acount Option -->
-                        <select name="account_id" class="form-control">
-                            <option value="">-- Select Account --</option>
-                        </select>
-                        <!-- End of Select Acount Option -->
-                    </div>
-
-                    <div class="form-group mb-2">
-                        <label for="">Enter Transfer Amount</label>
-                        <input type="text" name="transfer_amount" class="form-control"
-                            placeholder="Enter Transfer Amount">
-                    </div>
-                    <div class="form-group mb-2">
-                        <button id="transact-btn" class="btn btn-md">Transfer</button>
-                    </div>
-                </div>
-            </div>
-            <!-- End of Card: Transfer Card -->
-
-            <!-- Deposit Card -->
+            <!-- Card: Deposit Card -->
             <div class="card deposit-card">
                 <div class="card-body">
                     <form action="" class="deposit-form">
@@ -149,51 +109,58 @@
                             <input type="text" name="deposit_amount" class="form-control"
                                 placeholder="Enter Deposit Amount">
                         </div>
-
                         <div class="form-group mb-2">
                             <label for="">Select Account</label>
-                            <!-- Select Acount Option -->
-                            <select name="account_id" class="form-control">
+                            <select name="deposit_account_id" class="form-control">
                                 <option value="">-- Select Account --</option>
                             </select>
-                            <!-- End of Select Acount Option -->
                         </div>
-
                         <div class="form-group mb-2">
-                            <button id="transact-btn" class="btn btn-md">Deposit</button>
+                            <button id="deposit-btn" class="btn btn-md">Deposit</button>
                         </div>
                     </form>
                 </div>
             </div>
-            <!-- End of Deposit Card -->
+            <!-- End of Card: Deposit Card -->
 
-            <!-- Withdraw Card -->
+            <!-- Bootstrap Modal for Deposit Success -->
+            <div class="modal" tabindex="-1" role="dialog" id="depositSuccessModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Deposit Successful</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Your deposit has been successfully processed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Card: Withdraw Card -->
             <div class="card withdraw-card">
                 <div class="card-body">
-                    <form action="" class="deposit-form">
+                    <form action="" class="withdraw-form">
                         <div class="form-group mb-2">
                             <label for="">Enter Withdraw Amount</label>
                             <input type="text" name="withdraw_amount" class="form-control"
                                 placeholder="Enter Withdraw Amount">
                         </div>
-
                         <div class="form-group mb-2">
                             <label for="">Select Account</label>
-                            <!-- Select Acount Option -->
-                            <select name="account_id" class="form-control">
+                            <select name="withdraw_account_id" class="form-control">
                                 <option value="">-- Select Account --</option>
                             </select>
-                            <!-- End of Select Acount Option -->
                         </div>
-
                         <div class="form-group mb-2">
-                            <button id="transact-btn" class="btn btn-md">Withdraw</button>
+                            <button id="withdraw-btn" class="btn btn-md">Withdraw</button>
                         </div>
                     </form>
                 </div>
             </div>
-            <!-- End of Withdraw Card -->
-
+            <!-- End of Card: Withdraw Card -->
         </div>
     </div>
     <!-- End Offcanvas left side -->
@@ -211,24 +178,14 @@
 
                 <!-- Card Body -->
                 <div class="card-body">
-                    <form action="" class="add-account-form">
-                        <!-- Form Group -->
-                        <div class="form-group mb-3">
-                            <label for="">Enter Account Name</label>
-                            <input type="text" name="account_name" class="form-control"
-                                placeholder="Enter Account Name">
-                        </div>
-                        <!-- End of Form Group -->
+                    <div id="error-message" style="color: red;"></div>
+                    <form action="#" class="add-account-form">
 
                         <!-- Form Group -->
                         <div class="form-group mb-3">
-                            <label for="">Select Account Type</label>
-                            <select name="account_type" id="" class="form-control">
-                                <option value="">-- Select Account Type --</option>
-                                <option value="check">Check</option>
-                                <option value="saving">Saving</option>
-                                <option value="business">Business</option>
-                            </select>
+                            <label for="accountNumberInput">Account number you want</label>
+                            <input type="text" id="accountNumberInput" name="account_number" class="form-control"
+                                placeholder="Enter Account Number">
                         </div>
                         <!-- End of Form Group -->
 
@@ -277,10 +234,10 @@
     <!-- End of Container: Total Accounts balance Display -->
 
     <!-- Container: Accordion Menu / Drop Down -->
-    <div class="container">
+    <div class="container" id="accordionContainer">
         <!-- Accordion Menu / Drop Down -->
         <div class="accordion accordion-flush" id="accordionFlushExample">
-            <div class="accordion-item">
+            <div class="accordion-item" id="accordionItem">
                 <h2 class="accordion-header" id="flush-headingOne">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                         data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
@@ -336,9 +293,9 @@
     <!-- End of Container: Accordion Menu / Drop Down -->
 
     <!-- Container: NoAccounts -->
-    <div class="container">
+    <div class="container" id="no-accounts-container">
         <!-- Card: No Accounts -->
-        <div class="card no-accounts-card">
+        <div class="card no-accounts-card" id="no-accounts-card">
             <div class="card-body">
                 <h1 class="card-title">No Register Account</h1>
                 <div class="card-text">
