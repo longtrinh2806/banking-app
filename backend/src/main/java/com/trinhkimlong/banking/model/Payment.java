@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -22,16 +23,21 @@ public class Payment {
     @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
 
-    @Column(name = "beneficiary_name", nullable = false)
+    @Column(name = "beneficiary_name")
     private String beneficiaryName;
 
-    @Column(name = "beneficiary_account", nullable = false)
+    @Column(name = "beneficiary_account")
     private String beneficiaryAccount;
 
     @Column(name = "amount", nullable = false)
     private Long amount;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "transaction_type", nullable = false)
+    private TransactionType transactionType;
+
     @Column(name = "created_at")
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
 }

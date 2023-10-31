@@ -8,26 +8,23 @@ transactType.addEventListener("change", () => {
     switch (transactType.value) {
         case "payment":
             paymentCard.style.display = "block";
-            paymentCard.nextElementSibling.style.display = "none";
             depositCard.style.display = "none";
             withdrawCard.style.display = "none";
             break;
         case "deposit":
-            depositCard.previousElementSibling.style.display = "none";
             depositCard.style.display = "block";
-            depositCard.nextElementSibling.style.display = "none";
             paymentCard.style.display = "none";
+            withdrawCard.style.display = "none";
             break;
         case "withdraw":
-            withdrawCard.previousElementSibling.style.display = "none";
             withdrawCard.style.display = "block";
             paymentCard.style.display = "none";
+            depositCard.style.display = "none";
             break;
     }
-})
+});
 
 // Script xử lí dashboard: Tên người dùng, Tài khoản và số dư.
-
 document.addEventListener("DOMContentLoaded", function () {
     // Lấy token từ Local Storage
     const token = localStorage.getItem('token');
@@ -131,6 +128,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetchUserAccountsAndPopulateElements(token);
     handleDeposit();
+    handlePayment();
+    handleWithdrawal();
 });
 
 function fetchUserAccountsAndPopulateElements(token) {
@@ -151,6 +150,8 @@ function fetchUserAccountsAndPopulateElements(token) {
             populateAccordionWithAccounts(userAccounts);
             populateAccountSelect(userAccounts);
             populateDepositAccountSelect(userAccounts);
+            populateWithdrawAccountSelect(userAccounts)
+            populatePaymentAccountSelect(userAccounts)
         })
         .catch(error => {
             console.error("Error:", error);
@@ -300,6 +301,127 @@ function populateDepositAccountSelect(userAccounts) {
     });
 }
 
+
+// script option withdraw
+function populateWithdrawAccountSelect(userAccounts) {
+    const withdrawSelect = document.querySelector('select[name="withdraw_account_id"]');
+    withdrawSelect.innerHTML = '<option value="">-- Select Account --</option>';
+
+    userAccounts.forEach(account => {
+        const option = document.createElement('option');
+        option.value = account.accountNumber;
+        option.textContent = `${account.accountName} - ${account.accountNumber}`;
+        withdrawSelect.appendChild(option);
+    });
+}
+
+function populatePaymentAccountSelect(userAccounts) {
+    const paymentSelect = document.querySelector('select[name="payment_account_number"]');
+    paymentSelect.innerHTML = '<option value="">-- Select Account --</option>';
+
+    userAccounts.forEach(account => {
+        const option = document.createElement('option');
+        option.value = account.accountNumber;
+        option.textContent = `${account.accountName} - ${account.accountNumber}`;
+        paymentSelect.appendChild(option);
+    });
+}
+
+// Script chuyển khoản
+function handlePayment() {
+    const paymentButton = document.getElementById("payment-btn");
+    const token = localStorage.getItem('token');
+
+    paymentButton.addEventListener("click", () => {
+        const accountNumber = document.querySelector('select[name="payment_account_number"]').value;
+        const beneficiaryName = document.querySelector('input[name="beneficiary"]').value;
+        const beneficiaryAccount = document.querySelector('input[name="beneficiary_account_number"]').value;
+        const amount = document.querySelector('input[name="payment_amount"]').value;
+
+        const paymentData = {
+            accountNumber: accountNumber,
+            beneficiaryName: beneficiaryName,
+            beneficiaryAccount: beneficiaryAccount,
+            amount: amount
+        };
+
+        fetch('http://localhost:8080/api/payment', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": `Bearer ${token}`
+            },
+            body: JSON.stringify(paymentData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
+                }
+                throw new Error('Payment failed');
+            })
+            .then(data => {
+                console.log('Payment successful:', data);
+                const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+                successModal.show();
+                setTimeout(function () {
+                    successModal.hide(); // Đóng modal
+                    window.location.href = 'dashboard.html';
+                }, 4000);
+            })
+            .catch(error => {
+                console.error('Payment error:', error);
+            });
+    });
+}
+
+// Script xử lí rút tiền
+function handleWithdrawal() {
+    const withdrawButton = document.getElementById("withdraw-btn");
+    const token = localStorage.getItem('token');
+
+    withdrawButton.addEventListener("click", (event) => {
+        event.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+        const amount = document.querySelector('input[name="withdraw_amount"]').value;
+        const accountNumber = document.querySelector('select[name="withdraw_account_id"]').value;
+
+        // Kiểm tra nếu giá trị rút tiền hoặc tài khoản rút từ chưa được chọn
+        if (!amount || !accountNumber) {
+            alert("Please enter withdrawal amount and select an account.");
+            return;
+        }
+
+        const withdrawData = {
+            amount: amount,
+            accountNumber: accountNumber
+        };
+
+        fetch('http://localhost:8080/api/withdraw', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(withdrawData)
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Withdrawal successful!");
+                    const withdrawSuccessModal = new bootstrap.Modal(document.getElementById('withdrawSuccessModal'));
+                    withdrawSuccessModal.show();
+                    setTimeout(function () {
+                        withdrawSuccessModal.hide(); // Đóng modal
+                        window.location.href = 'dashboard.html';
+                    }, 4000);
+                } else {
+                    throw new Error('Withdrawal failed.');
+                }
+            })
+            .catch(error => {
+                console.error('Error during withdrawal:', error);
+            });
+    });
+}
 
 
 // Script xử lí log out

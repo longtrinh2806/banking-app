@@ -1,0 +1,67 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #b3d7dd;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 36px;
+    color: #333;
+}
+
+table {
+    width: 80%;
+    max-width: 800px;
+    margin-top: 20px;
+    border-radius: 8px;
+    background-color: #dadee0;
+    box-shadow: 0 0 10px rgba(133, 55, 55, 0.1);
+    border-collapse: collapse;
+    overflow: hidden;
+    /* Loại bỏ viền cell nếu bị tràn bảng */
+}
+
+/* Định dạng các tiêu đề */
+table th {
+    background-color: #f3f3f3;
+    /* Màu sắc nổi bật tiêu đề */
+    font-weight: bold;
+    padding: 15px 20px;
+    /* Khoảng cách */
+    text-align: center;
+    /* Căn giữa nội dung tiêu đề */
+}
+
+/* Định dạng hàng xen kẽ */
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Định dạng các ô trong bảng */
+table th,
+table td {
+    text-align: center;
+    /* Căn giữa nội dung ô */
+    padding: 15px 20px;
+    /* Khoảng cách */
+    border-right: 1px solid #ccc;
+    /* Viền phải */
+    border-bottom: 1px solid #ccc;
+    /* Viền dưới */
+}
+
+/* Căn trái cho ô đầu tiên của mỗi hàng */
+table th:first-child,
+table td:first-child {
+    text-align: left;
+    padding-left: 20px;
+    /* Khoảng cách lớn hơn */
+}

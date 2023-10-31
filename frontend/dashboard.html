@@ -24,9 +24,8 @@
 
             <!-- Navigation -->
             <nav class="navigation">
-                <li><a href="">Dashboard</a></li>
-                <li><a href="">Payment History</a></li>
-                <li><a href="">Transaction History</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="transaction_history.html">Transaction History</a></li>
             </nav>
             <!-- End Navigation -->
 
@@ -72,7 +71,7 @@
                 <div class="card-body">
                     <div class="form-group mb-2">
                         <label for="">Select Account</label>
-                        <select name="account_id" class="form-control">
+                        <select name="payment_account_number" class="form-control">
                             <option value="">-- Select Account --</option>
                         </select>
                     </div>
@@ -84,7 +83,7 @@
                     </div>
                     <div class="form-group mb-2">
                         <label for="">Beneficiary Account Number</label>
-                        <input type="text" name="account_number" class="form-control"
+                        <input type="text" name="beneficiary_account_number" class="form-control"
                             placeholder="Enter Account Number">
                     </div>
 
@@ -99,6 +98,21 @@
                 </div>
             </div>
             <!-- End of Card: Payment Card -->
+
+            <div class="modal" id="successModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Transfer Successful</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Your transfer has been successfully processed.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
 
             <!-- Card: Deposit Card -->
             <div class="card deposit-card">
@@ -144,22 +158,38 @@
                 <div class="card-body">
                     <form action="" class="withdraw-form">
                         <div class="form-group mb-2">
-                            <label for="">Enter Withdraw Amount</label>
-                            <input type="text" name="withdraw_amount" class="form-control"
-                                placeholder="Enter Withdraw Amount">
-                        </div>
-                        <div class="form-group mb-2">
                             <label for="">Select Account</label>
                             <select name="withdraw_account_id" class="form-control">
                                 <option value="">-- Select Account --</option>
                             </select>
                         </div>
+
+                        <div class="form-group mb-2">
+                            <label for="">Enter Withdraw Amount</label>
+                            <input type="text" name="withdraw_amount" class="form-control"
+                                placeholder="Enter Withdraw Amount">
+                        </div>
+
                         <div class="form-group mb-2">
                             <button id="withdraw-btn" class="btn btn-md">Withdraw</button>
                         </div>
                     </form>
                 </div>
             </div>
+            <div class="modal" id="withdrawSuccessModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Withdrawal Successful</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Your withdrawal has been successful.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- End of Card: Withdraw Card -->
         </div>
     </div>
