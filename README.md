@@ -32,13 +32,19 @@ Cài đặt
 
 
 Cấu trúc dự án
+
   /src: Chứa mã nguồn của ứng dụng.
+  
   /resources: Chứa tệp cấu hình và tài nguyên cần thiết.
 
 
 Công nghệ và Frameworks
   Java
+  
   Spring Boot
+  
   Spring Security
+  
   Hibernate
+  
   RESTful API
