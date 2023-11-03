@@ -23,7 +23,7 @@ Cài đặt
     
     3. Cập nhật cấu hình cơ sở dữ liệu trong tệp "application.yml".
     
-    ![image](https://github.com/longtrinh2806/banking-app/assets/136159911/0e8d34ea-d04b-4c95-89af-c98235f243e3)
+  ![image](https://github.com/longtrinh2806/banking-app/assets/136159911/0e8d34ea-d04b-4c95-89af-c98235f243e3)
 
 
 Cấu trúc dự án
