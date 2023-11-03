@@ -38,7 +38,8 @@ Cấu trúc dự án
   /resources: Chứa tệp cấu hình và tài nguyên cần thiết.
 
 
-Công nghệ và Frameworks
+Công nghệ và Frameworks:
+
   Java
   
   Spring Boot
