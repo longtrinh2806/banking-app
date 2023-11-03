@@ -1,4 +1,4 @@
-package com.trinhkimlong.banking.service;
+package com.trinhkimlong.banking.service.implementation;
 
 import com.trinhkimlong.banking.exception.AccountException;
 import com.trinhkimlong.banking.exception.UserNotFoundException;
@@ -11,6 +11,8 @@ import com.trinhkimlong.banking.repository.PaymentRepository;
 import com.trinhkimlong.banking.request.PaymentRequest;
 import com.trinhkimlong.banking.response.PaymentResponse;
 import com.trinhkimlong.banking.response.TransactionHistoryResponse;
+import com.trinhkimlong.banking.service.PaymentService;
+import com.trinhkimlong.banking.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PaymentServiceImpl implements PaymentService{
+public class PaymentServiceImpl implements PaymentService {
     private final PaymentRepository paymentRepository;
     private final UserService userService;
     private final AccountRepository accountRepository;
@@ -69,6 +71,7 @@ public class PaymentServiceImpl implements PaymentService{
     public List<TransactionHistoryResponse> transactionHistory(String token) throws UserNotFoundException {
 
         User tmp = userService.findUserProfileByJwt(token);
+
         List<TransactionHistoryResponse> history = new ArrayList<>();
 
         if (tmp != null) {
@@ -79,6 +82,7 @@ public class PaymentServiceImpl implements PaymentService{
                     .collect(Collectors.toList());
 
             List<Payment> payments = paymentRepository.findByAccountIds(accountIds);
+
             for (Payment payment : payments) {
                 TransactionHistoryResponse historyResponse = new TransactionHistoryResponse();
                 historyResponse.setPaymentId(payment.getPaymentId());

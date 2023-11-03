@@ -1,4 +1,4 @@
-package com.trinhkimlong.banking.service;
+package com.trinhkimlong.banking.service.implementation;
 
 import com.trinhkimlong.banking.exception.AccountException;
 import com.trinhkimlong.banking.exception.UserNotFoundException;
@@ -10,6 +10,8 @@ import com.trinhkimlong.banking.repository.AccountRepository;
 import com.trinhkimlong.banking.repository.PaymentRepository;
 import com.trinhkimlong.banking.request.DepositRequest;
 import com.trinhkimlong.banking.response.DepositResponse;
+import com.trinhkimlong.banking.service.DepositService;
+import com.trinhkimlong.banking.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

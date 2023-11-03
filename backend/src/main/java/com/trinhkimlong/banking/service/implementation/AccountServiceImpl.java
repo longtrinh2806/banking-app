@@ -1,4 +1,4 @@
-package com.trinhkimlong.banking.service;
+package com.trinhkimlong.banking.service.implementation;
 
 import com.trinhkimlong.banking.exception.AccountException;
 import com.trinhkimlong.banking.exception.UserNotFoundException;
@@ -7,12 +7,14 @@ import com.trinhkimlong.banking.model.User;
 import com.trinhkimlong.banking.repository.AccountRepository;
 import com.trinhkimlong.banking.request.CreateAccountRequest;
 import com.trinhkimlong.banking.response.CreateAccountResponse;
+import com.trinhkimlong.banking.service.AccountService;
+import com.trinhkimlong.banking.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class AccountServiceImpl implements AccountService{
+public class AccountServiceImpl implements AccountService {
     private final UserService userService;
     private final AccountRepository accountRepository;
 

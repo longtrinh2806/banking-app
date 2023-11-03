@@ -1,4 +1,4 @@
-package com.trinhkimlong.banking.service;
+package com.trinhkimlong.banking.service.implementation;
 
 import com.trinhkimlong.banking.exception.AccountException;
 import com.trinhkimlong.banking.exception.UserNotFoundException;
@@ -10,6 +10,8 @@ import com.trinhkimlong.banking.repository.AccountRepository;
 import com.trinhkimlong.banking.repository.PaymentRepository;
 import com.trinhkimlong.banking.request.WithdrawRequest;
 import com.trinhkimlong.banking.response.WithdrawResponse;
+import com.trinhkimlong.banking.service.UserService;
+import com.trinhkimlong.banking.service.WithdrawService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,7 +35,8 @@ public class WithdrawServiceImpl implements WithdrawService {
 
         if (accountList != null) {
             for (Account account : accountList) {
-                if (account.getAccountNumber().equals(request.getAccountNumber()) && account.getBalance() >= request.getAmount()) {
+                if ( account.getAccountNumber().equals(request.getAccountNumber())
+                        && account.getBalance() >= request.getAmount()) {
                     account.setBalance(account.getBalance() - request.getAmount());
                     accountRepository.save(account);
 

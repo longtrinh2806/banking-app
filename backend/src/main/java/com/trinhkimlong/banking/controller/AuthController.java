@@ -3,7 +3,7 @@ package com.trinhkimlong.banking.controller;
 import com.trinhkimlong.banking.request.AuthenticationRequest;
 import com.trinhkimlong.banking.request.RegisterRequest;
 import com.trinhkimlong.banking.response.AuthenticationResponse;
-import com.trinhkimlong.banking.service.AuthenticationService;
+import com.trinhkimlong.banking.service.implementation.AuthenticationServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 @CrossOrigin
 public class AuthController {
-    private final AuthenticationService authenticationService;
+    private final AuthenticationServiceImpl authenticationService;
 
     @Autowired
-    public AuthController(AuthenticationService authenticationService) {
+    public AuthController(AuthenticationServiceImpl authenticationService) {
         this.authenticationService = authenticationService;
     }
 

@@ -9,6 +9,3 @@ spring:
       ddl-auto: create-drop
     show-sql: true
 
-  mvc:
-    converters:
-      preferred-json-mapper: jackson
