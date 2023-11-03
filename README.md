@@ -16,11 +16,16 @@ Các tính năng
   Nạp tiền: Người dùng có thể nạp tiền vào tài khoản của mình.
 
 Cài đặt
-  Để chạy ứng dụng trên máy cục bộ, bạn cần:
+Để chạy ứng dụng trên máy cục bộ, bạn cần:
+  
   Cài đặt Java Development Kit (JDK).
+
   Cài đặt PostgreSQL hoặc MySQL.
+  
   Cập nhật thông tin cấu hình cơ sở dữ liệu trong tệp application.properties.
+  
   Chạy ứng dụng từ IDE hoặc dùng lệnh ./mvnw spring-boot:run từ terminal.
+
   
 
 ![image](https://github.com/longtrinh2806/banking-app/assets/136159911/1e1073b7-f0b3-4052-9084-a0db959b1e9c)
