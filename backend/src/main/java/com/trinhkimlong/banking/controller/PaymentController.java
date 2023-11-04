@@ -1,7 +1,9 @@
 package com.trinhkimlong.banking.controller;
 
 import com.trinhkimlong.banking.exception.UserNotFoundException;
+import com.trinhkimlong.banking.request.BeneficiaryRequest;
 import com.trinhkimlong.banking.request.PaymentRequest;
+import com.trinhkimlong.banking.response.BeneficiaryNameResponse;
 import com.trinhkimlong.banking.response.PaymentResponse;
 import com.trinhkimlong.banking.response.TransactionHistoryResponse;
 import com.trinhkimlong.banking.service.PaymentService;
@@ -32,5 +34,12 @@ public class PaymentController {
     public ResponseEntity<List<TransactionHistoryResponse>> getTransactionHistory(
             @RequestHeader("Authorization") String token) throws UserNotFoundException {
         return ResponseEntity.ok(paymentService.transactionHistory(token));
+    }
+
+    @PostMapping
+    public ResponseEntity<BeneficiaryNameResponse> getBeneficiaryName(
+            @RequestHeader("Authorization") String token,
+            @RequestBody BeneficiaryRequest request) throws UserNotFoundException {
+        return ResponseEntity.ok(paymentService.getBeneficiaryName(token, request));
     }
 }

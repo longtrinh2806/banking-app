@@ -77,15 +77,17 @@
                     </div>
 
                     <div class="form-group mb-2">
-                        <label for="">Account Holder / Beneficiary</label>
-                        <input type="text" name="beneficiary" class="form-control"
-                            placeholder="Enter Account Holder / Beneficiary Name">
-                    </div>
-                    <div class="form-group mb-2">
                         <label for="">Beneficiary Account Number</label>
                         <input type="text" name="beneficiary_account_number" class="form-control"
                             placeholder="Enter Account Number">
                     </div>
+
+                    <div class="form-group mb-2">
+                        <label for="">Beneficiary Name</label>
+                        <input type="text" name="beneficiary" class="form-control"
+                            placeholder="Enter Account Holder / Beneficiary Name">
+                    </div>
+
 
                     <div class="form-group mb-2">
                         <label for="">Payment Amount</label>
@@ -119,16 +121,18 @@
                 <div class="card-body">
                     <form action="" class="deposit-form">
                         <div class="form-group mb-2">
-                            <label for="">Enter Deposit Amount</label>
-                            <input type="text" name="deposit_amount" class="form-control"
-                                placeholder="Enter Deposit Amount">
-                        </div>
-                        <div class="form-group mb-2">
                             <label for="">Select Account</label>
                             <select name="deposit_account_id" class="form-control">
                                 <option value="">-- Select Account --</option>
                             </select>
                         </div>
+
+                        <div class="form-group mb-2">
+                            <label for="">Enter Deposit Amount</label>
+                            <input type="text" name="deposit_amount" class="form-control"
+                                placeholder="Enter Deposit Amount">
+                        </div>
+
                         <div class="form-group mb-2">
                             <button id="deposit-btn" class="btn btn-md">Deposit</button>
                         </div>

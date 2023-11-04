@@ -8,7 +8,9 @@ import com.trinhkimlong.banking.model.TransactionType;
 import com.trinhkimlong.banking.model.User;
 import com.trinhkimlong.banking.repository.AccountRepository;
 import com.trinhkimlong.banking.repository.PaymentRepository;
+import com.trinhkimlong.banking.request.BeneficiaryRequest;
 import com.trinhkimlong.banking.request.PaymentRequest;
+import com.trinhkimlong.banking.response.BeneficiaryNameResponse;
 import com.trinhkimlong.banking.response.PaymentResponse;
 import com.trinhkimlong.banking.response.TransactionHistoryResponse;
 import com.trinhkimlong.banking.service.PaymentService;
@@ -97,5 +99,21 @@ public class PaymentServiceImpl implements PaymentService {
             }
             return history;
         } else throw new AccountException("Invalid user!!!");
+    }
+
+    @Override
+    public BeneficiaryNameResponse getBeneficiaryName(String token, BeneficiaryRequest request) throws UserNotFoundException {
+        User tmp = userService.findUserProfileByJwt(token);
+        if (tmp != null) {
+            Account account = accountRepository.findByAccountNumber(request.getBeneficiaryNumber());
+            if (account != null) {
+                return BeneficiaryNameResponse
+                        .builder()
+                        .beneficiaryName(account.getAccountName())
+                        .build();
+            }
+            else throw new AccountException("Account not existed!!!");
+        }
+        else throw new UserNotFoundException("Invalid user");
     }
 }

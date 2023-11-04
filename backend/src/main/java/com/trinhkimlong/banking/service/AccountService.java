@@ -6,4 +6,5 @@ import com.trinhkimlong.banking.response.CreateAccountResponse;
 
 public interface AccountService {
     CreateAccountResponse createAccount(String token, CreateAccountRequest request) throws UserNotFoundException;
+
 }

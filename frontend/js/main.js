@@ -332,11 +332,17 @@ function handlePayment() {
     const paymentButton = document.getElementById("payment-btn");
     const token = localStorage.getItem('token');
 
+
     paymentButton.addEventListener("click", () => {
         const accountNumber = document.querySelector('select[name="payment_account_number"]').value;
         const beneficiaryName = document.querySelector('input[name="beneficiary"]').value;
         const beneficiaryAccount = document.querySelector('input[name="beneficiary_account_number"]').value;
         const amount = document.querySelector('input[name="payment_amount"]').value;
+
+        if (!accountNumber || !beneficiaryName || !beneficiaryAccount || !amount) {
+            alert("Please fill in all the fields.");
+            return;
+        }
 
         const paymentData = {
             accountNumber: accountNumber,
@@ -372,7 +378,42 @@ function handlePayment() {
                 console.error('Payment error:', error);
             });
     });
+    const beneficiaryAccountInput = document.querySelector('input[name="beneficiary_account_number"]');
+    beneficiaryAccountInput.addEventListener("blur", () => {
+        getBeneficiaryAccountName();
+    });
 }
+function getBeneficiaryAccountName() {
+    const beneficiaryAccountInput = document.querySelector('input[name="beneficiary_account_number"]');
+    const beneficiaryAccount = beneficiaryAccountInput.value;
+    const token = localStorage.getItem('token');
+
+    fetch('http://localhost:8080/api/payment', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify({ beneficiaryNumber: beneficiaryAccount })
+    })
+        .then(response => {
+            if (response.ok) {
+                return response.json();
+            }
+            throw new Error('Could not fetch beneficiary account name');
+        })
+        .then(data => {
+            const beneficiaryNameInput = document.querySelector('input[name="beneficiary"]');
+            beneficiaryNameInput.value = data.beneficiaryName;
+            beneficiaryNameInput.disabled = true;
+            beneficiaryNameInput.style.backgroundColor = "#E6F1D8";
+        })
+        .catch(error => {
+            console.error('Error fetching beneficiary account name:', error);
+            alert(`Error: ${error.message}`);
+        });
+}
+
 
 // Script xử lí rút tiền
 function handleWithdrawal() {
